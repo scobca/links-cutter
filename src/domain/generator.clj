@@ -5,8 +5,8 @@
 
 (defn check-valid-size [size]
   (and
-    (>= size 5)
-    (<= size 10)))
+   (>= size 5)
+   (<= size 10)))
 
 (defn generate-code
   ([]
@@ -15,6 +15,6 @@
    (when (check-valid-size size)
      (apply str
             (repeatedly
-              size
-              (fn []
-                (nth alphabet (rand-int (count alphabet)))))))))
+             size
+             (fn []
+               (nth alphabet (rand-int (count alphabet)))))))))
