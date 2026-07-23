@@ -3,7 +3,7 @@
 (def alphabet
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
-(defn check-valid-size [size]
+(defn valid-size? [size]
   (and
    (>= size 5)
    (<= size 10)))
@@ -12,7 +12,7 @@
   ([]
    (generate-code 6))
   ([size]
-   (when (check-valid-size size)
+   (when (valid-size? size)
      (apply str
             (repeatedly
              size
