@@ -2,7 +2,7 @@
 
 ## What is that?
 
-`Clojure links currer` is a studying project for learning Clojure syntax and its usability in WebDev.
+`Clojure links cutter` is a studying project for learning Clojure syntax and its usability in WebDev.
 
 ## Authors
 
