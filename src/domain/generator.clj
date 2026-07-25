@@ -11,10 +11,10 @@
 (defn generate-code
   ([]
    (generate-code 6))
+
   ([size]
    (when (valid-size? size)
      (apply str
             (repeatedly
              size
-             (fn []
-               (nth alphabet (rand-int (count alphabet)))))))))
+             (fn [] (nth alphabet (rand-int (count alphabet)))))))))
