@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eu
 
+# =========================
+# Extract project version
+# =========================
+
 VERSION_FILE="VERSION"
 
 if [ ! -f "$VERSION_FILE" ]; then
@@ -22,8 +26,28 @@ if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
   exit 0
 fi
 
-git config user.name "github-actions"
-git config user.email "github-actions@users.noreply.github.com"
+
+# =========================
+# Create & publish new tag
+# =========================
+
+ORIGINAL_NAME=$(git config --local user.name || echo "")
+ORIGINAL_EMAIL=$(git config --local user.email || echo "")
+
+git config --local user.name "github-actions"
+git config --local user.email "github-actions@users.noreply.github.com"
 
 git tag -a "$TAG_NAME" -m "Release $VERSION"
 git push origin "$TAG_NAME"
+
+if [ -n "$ORIGINAL_NAME" ]; then
+  git config --local user.name "$ORIGINAL_NAME"
+else
+  git config --local --unset user.name
+fi
+
+if [ -n "$ORIGINAL_EMAIL" ]; then
+  git config --local user.email "$ORIGINAL_EMAIL"
+else
+  git config --local --unset user.email
+fi
