@@ -7,6 +7,13 @@
   [code]
   (contains? @links code))
 
+(defn find-link-record
+  "Accepts link's short-code and return from memory struct of code and natural link."
+  [code]
+  (when-let [url (get @links code)]
+    {:code code
+     :url url}))
+
 (defn save-link-record!
   "Accepts short-code and natural link (url), save it into memory."
   [code url]
@@ -20,20 +27,13 @@
 (defn show-links
   "Show all links records (if args are empty) or show last N records (if user provide param size)."
   ([]
-   (println "All links:")
-   (doseq [[code url] @links]
-     (println "  Code:" code "-> URL:" url)))
+   @links)
 
   ([size]
    (let [all-links @links
          total (count all-links)
-         start (max 0 (- total size))
-         links-to-show (->> all-links
-                            (drop start)
-                            (take size))]
-
-     (println (str "Last " size " link(s) (total: " total "):"))
-     (if (empty? links-to-show)
-       (println "  No links to show")
-       (doseq [[code url] links-to-show]
-         (println "  Code:" code "-> URL:" url))))))
+         start (max 0 (- total size))]
+     (->> all-links
+          (drop start)
+          (take size)
+          (into {})))))
