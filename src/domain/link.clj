@@ -4,11 +4,13 @@
    [memory :refer [code-occupied? save-link-record!]]))
 
 (defn valid-url?
+  "Validate input URL, return boolean."
   [url]
   (and (string? url)
        (not-empty url)))
 
 (defn create-link-record!
+  "Create the record of link, and it's unique code into the in-memory database (Check memory.clj)."
   ([url code]
    (cond
      (not (valid-url? url))
