@@ -6,4 +6,6 @@
 (println (link/create-link-record! "https://example.com" "short-code"))
 (println (link/create-link-record! "https://example.com"))
 
-(show-links)
+(let [links (show-links)]
+  (doseq [[code url] links]
+    (println "Code:" code "—> URL:" url)))
