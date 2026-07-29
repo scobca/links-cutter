@@ -13,6 +13,9 @@ MD010:
 # MD013 - Maximum line length
 MD013: false
 
+# MD024 - No duplicate heading
+MD024: false
+
 # MD029 - Ordered list item prefix
 # Настройка стиля нумерации списков
 MD029: true
