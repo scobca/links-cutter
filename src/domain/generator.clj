@@ -7,6 +7,7 @@
   "Validate the input size of generated code, returns boolean."
   [size]
   (and
+   (integer? size)
    (>= size 5)
    (<= size 10)))
 
