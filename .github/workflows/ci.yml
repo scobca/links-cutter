@@ -91,6 +91,7 @@ jobs:
   publish-release:
     needs:
       - clojure-formatting
+      - clojure-testing
       - markdown-formatting
 
     runs-on: ubuntu-latest
