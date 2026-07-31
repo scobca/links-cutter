@@ -1,0 +1,12 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}}
+ :aliases
+ {:test
+  {:extra-paths ["test" "resources"]
+   :extra-deps {lambdaisland/kaocha {:mvn/version "1.81.1203"}}
+   :main-opts ["-m" "kaocha.runner"]}}
+
+ :kaocha
+ {:tests [{:id          :unit
+           :test-paths  ["test"]
+           :ns-patterns ["-test$"]}]}}
