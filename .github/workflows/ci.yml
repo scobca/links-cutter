@@ -5,11 +5,13 @@ on:
   push:
 
 jobs:
-  clojure-checks:
+  clojure-formatting:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Check out repository code
+        uses: actions/checkout@v6
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -28,19 +30,13 @@ jobs:
           path: |
             ~/.m2/repository
             ~/.gitlibs
-            ~/.deps.clj
-          key: clojure-deps-${{ hashFiles('deps.edn') }}
+          key: ${{ runner.os }}-clojure-${{ hashFiles('deps.edn') }}
           restore-keys: |
-            clojure-deps-
-
-      - name: Download dependencies
-        run: clj -P
+            ${{ runner.os }}-clojure-
 
       - name: Check formatting
         run: cljfmt check
 
-      - name: Run tests
-        run: clj -X:test
 
   markdown-formatting:
     timeout-minutes: 5
@@ -55,9 +51,46 @@ jobs:
           files: .
           config_file: .markdownlint.yaml
 
+
+  clojure-testing:
+    needs:
+      - clojure-formatting
+
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
+      - name: Setup Clojure
+        uses: DeLaGuardo/setup-clojure@13
+        with:
+          cli: 'latest'
+
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+          key: ${{ runner.os }}-clojure-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clojure-
+
+      - name: Run tests
+        run: clojure -M:test
+
+
   publish-release:
     needs:
-      - clojure-checks
+      - clojure-formatting
       - markdown-formatting
 
     runs-on: ubuntu-latest
