@@ -6,8 +6,11 @@
 (defn valid-url?
   "Validate input URL, return boolean."
   [url]
-  (and (string? url)
-       (not-empty url)))
+  (if (and
+       (string? url)
+       (not-empty url))
+    true
+    false))
 
 (defn create-link-record!
   "Create the record of link, and it's unique code into the in-memory database (Check memory.clj)."
