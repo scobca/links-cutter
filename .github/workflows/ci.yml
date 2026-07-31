@@ -5,13 +5,11 @@ on:
   push:
 
 jobs:
-  clojure-formatting:
-    timeout-minutes: 5
+  clojure-checks:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -24,8 +22,25 @@ jobs:
         with:
           cljfmt: 'latest'
 
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+            ~/.deps.clj
+          key: clojure-deps-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            clojure-deps-
+
+      - name: Download dependencies
+        run: clj -P
+
       - name: Check formatting
         run: cljfmt check
+
+      - name: Run tests
+        run: clj -X:test
 
   markdown-formatting:
     timeout-minutes: 5
@@ -42,7 +57,7 @@ jobs:
 
   publish-release:
     needs:
-      - clojure-formatting
+      - clojure-checks
       - markdown-formatting
 
     runs-on: ubuntu-latest
@@ -50,7 +65,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
