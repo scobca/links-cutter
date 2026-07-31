@@ -24,8 +24,19 @@ jobs:
         with:
           cljfmt: 'latest'
 
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+          key: ${{ runner.os }}-clojure-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clojure-
+
       - name: Check formatting
         run: cljfmt check
+
 
   markdown-formatting:
     timeout-minutes: 5
@@ -40,9 +51,47 @@ jobs:
           files: .
           config_file: .markdownlint.yaml
 
+
+  clojure-testing:
+    needs:
+      - clojure-formatting
+
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
+      - name: Setup Clojure
+        uses: DeLaGuardo/setup-clojure@13
+        with:
+          cli: 'latest'
+
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+          key: ${{ runner.os }}-clojure-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clojure-
+
+      - name: Run tests
+        run: clojure -M:test
+
+
   publish-release:
     needs:
       - clojure-formatting
+      - clojure-testing
       - markdown-formatting
 
     runs-on: ubuntu-latest
@@ -50,7 +99,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
