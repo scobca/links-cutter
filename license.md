@@ -1,3 +1,5 @@
+# License
+
 Copyright 2026 Vladimir Fokin
 
 Redistribution and use in source and binary forms, with or without modification,
