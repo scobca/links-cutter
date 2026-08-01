@@ -1,11 +1,15 @@
 (ns core
-  (:require
-   [domain.link :as link]
-   [memory :refer [show-links]]))
+  (:require [time :refer [set-start-time! get-server-uptime]]))
 
-(println (link/create-link-record! "https://example.com" "short-code"))
-(println (link/create-link-record! "https://example.com"))
+(defn start-server []
+  (set-start-time!))
 
-(let [links (show-links)]
-  (doseq [[code url] links]
-    (println "Code:" code "—> URL:" url)))
+(defn -main []
+  (start-server)
+  (println "Server started")
+
+  (loop [i 0]
+    (when (< i 120)
+      (println (get-server-uptime))
+      (Thread/sleep 1000)
+      (recur (inc i)))))
