@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/ru/1.0.0),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.3] - 2026-08-01
+
+### Changed
+
+Project moved to Lein base. Base project structure now in project.clj file
+Due to CI steps project version into project.clj getting from VERSION file using slurp function
+
 ## [v0.0.2] - 2026-07-31
 
 ### Added
