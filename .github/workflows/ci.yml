@@ -69,23 +69,14 @@ jobs:
           distribution: 'zulu'
           java-version: '8'
 
-      - name: Setup Clojure
+      - name: Setup Clojure with Leiningen
         uses: DeLaGuardo/setup-clojure@13
         with:
-          cli: 'latest'
-
-      - name: Cache Clojure dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.m2/repository
-            ~/.gitlibs
-          key: ${{ runner.os }}-clojure-${{ hashFiles('deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-clojure-
+          lein: 'latest'
 
       - name: Run tests
-        run: clojure -M:test
+        run: lein test
+
 
 
   publish-release:
