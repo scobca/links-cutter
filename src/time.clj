@@ -1,23 +1,24 @@
 (ns time
   (:import [java.time Duration Instant]))
 
-(def start-time (atom nil))
+(defrecord Uptime [hours minutes seconds millis])
+
+(defonce start-time (atom nil))
 
 (defn ^:private convert-java-duration
-  "Convert java Instant time into custom Clojure time object"
+  "Convert java Instant time into custom Uptime class.
+  Returns: time.Uptime"
   [^Duration duration]
   (let [hours (.toHours duration)
         minutes (mod (.toMinutes duration) 60)
         seconds (mod (.getSeconds duration) 60)
         millis (quot (.getNano duration) 1000000)]
 
-    {:hours hours
-     :minutes minutes
-     :seconds seconds
-     :millis millis}))
+    (->Uptime hours minutes seconds millis)))
 
-(defn get-server-uptime
-  "Returns server uptime."
+(defn ^Uptime get-server-uptime
+  "Returns server uptime.
+  Returns: time.Uptime"
   []
   (if @start-time (->> (Instant/now)
                        (Duration/between @start-time)
