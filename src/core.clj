@@ -1,15 +1,12 @@
 (ns core
-  (:require [time :refer [set-start-time! get-server-uptime]]))
+  (:require [ring.adapter.jetty :refer [run-jetty]]
+            [web.routes :refer [app-routes]]
+            [time :refer [set-start-time!]]))
 
 (defn start-server []
+  (run-jetty app-routes {:port 3000 :join? false})
   (set-start-time!))
 
 (defn -main []
   (start-server)
-  (println "Server started")
-
-  (loop [i 0]
-    (when (< i 120)
-      (println (get-server-uptime))
-      (Thread/sleep 1000)
-      (recur (inc i)))))
+  (println "Server started"))
