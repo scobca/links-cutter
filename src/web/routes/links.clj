@@ -1,7 +1,7 @@
 (ns web.routes.links
-  (:require [compojure.core :refer [defroutes GET POST]]
-            [ring.util.http-response :refer [ok bad-request]]
-            [core.memory :refer [show-links]]
+  (:require [compojure.core :refer [defroutes GET POST DELETE]]
+            [ring.util.http-response :refer [not-found ok bad-request]]
+            [core.memory :refer [show-links find-link-record remove-link-record!]]
             [domain.link :refer [create-link-record!]]
             [core.constants :refer [BASIC-LINKS-PULL-SIZE]]
             [dto.link-request :refer [map->CreateLinkRequest]]))
@@ -29,4 +29,15 @@
           result (create-link-record! (:url body))]
       (if (:error result)
         (bad-request result)
-        (ok result)))))
+        (ok result))))
+
+  (DELETE "/:code" request
+    "Delete shortened link by it code. Expects param :code"
+
+    (let [code (-> request :params :code)
+          record (find-link-record code)]
+
+      (if record
+        (do (remove-link-record! code)
+            (ok {:message "Link deleted successful"}))
+        (not-found {:message "Link with this code not found"})))))
