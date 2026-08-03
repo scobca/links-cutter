@@ -1,6 +1,6 @@
 (ns memory-test
   (:require [clojure.test :refer [deftest is testing]]
-            [memory :refer :all]))
+            [core.memory :refer :all]))
 
 (defn clean-links
   "Clean links memory before each test."

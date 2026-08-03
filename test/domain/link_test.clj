@@ -1,7 +1,7 @@
 (ns domain.link-test
   (:require [clojure.test :refer [deftest is testing]]
             [domain.link :refer [valid-url? create-link-record!]]
-            [memory :refer [links code-occupied?]]))
+            [core.memory :refer [links code-occupied?]]))
 
 (defn clean-links []
   (reset! links {}))
