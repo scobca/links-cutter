@@ -3,7 +3,7 @@
             [ring.util.http-response :refer [ok not-found bad-request]]
 
             ;; Own code imports
-            [memory :refer [show-links]]
+            [core.memory :refer [show-links]]
             [time :refer [get-server-uptime]]
             [domain.link :refer [create-link-record!]]
             [constants :refer [BASIC-LINKS-PULL-SIZE]]

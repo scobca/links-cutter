@@ -1,7 +1,7 @@
 (ns domain.link
   (:require
    [domain.generator :refer [generate-code]]
-   [memory :refer [code-occupied? save-link-record!]]))
+   [core.memory :refer [code-occupied? save-link-record!]]))
 
 (defn valid-url?
   "Validate input URL, return boolean."
