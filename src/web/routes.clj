@@ -6,7 +6,7 @@
             [core.memory :refer [show-links]]
             [time :refer [get-server-uptime]]
             [domain.link :refer [create-link-record!]]
-            [constants :refer [BASIC-LINKS-PULL-SIZE]]
+            [core.constants :refer [BASIC-LINKS-PULL-SIZE]]
             [dto.link-request :refer [map->CreateLinkRequest]])
 
   (:import (time Uptime)))
