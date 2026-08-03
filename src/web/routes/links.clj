@@ -1,26 +1,12 @@
-(ns web.routes
-  (:require [compojure.core :refer [defroutes GET POST ANY]]
-            [ring.util.http-response :refer [ok not-found bad-request]]
-
-            ;; Own code imports
+(ns web.routes.links
+  (:require [compojure.core :refer [defroutes GET POST]]
+            [ring.util.http-response :refer [ok bad-request]]
             [core.memory :refer [show-links]]
-            [core.time :refer [get-server-uptime]]
             [domain.link :refer [create-link-record!]]
             [core.constants :refer [BASIC-LINKS-PULL-SIZE]]
-            [dto.link-request :refer [map->CreateLinkRequest]])
+            [dto.link-request :refer [map->CreateLinkRequest]]))
 
-  (:import (dto.time Uptime)))
-
-(defroutes app-routes
-  (GET "/info" []
-    "Returns server uptime and status information."
-
-    (let [^Uptime uptime (get-server-uptime)]
-      (ok (str "Web server started successfully. Work time: "
-               (:hours uptime) "h "
-               (:minutes uptime) "min "
-               (:seconds uptime) "sec "
-               (:millis uptime) "millis"))))
+(defroutes links-routes
 
   (GET "/show/:length" request
     "Shows links. Optional :length parameter for limiting results."
@@ -43,8 +29,4 @@
           result (create-link-record! (:url body))]
       (if (:error result)
         (bad-request result)
-        (ok result))))
-
-  (ANY "*" []
-    "Catch-all route for 404 Not Found"
-    (not-found "Not Found")))
+        (ok result)))))

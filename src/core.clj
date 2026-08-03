@@ -2,7 +2,7 @@
   (:require [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
             [ring.middleware.params :refer [wrap-params]]
-            [web.routes :refer [app-routes]]
+            [web.router :refer [app-routes]]
             [core.time :refer [set-start-time!]]
             [ring.middleware.params :refer [wrap-params]]))
 
