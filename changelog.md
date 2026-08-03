@@ -3,6 +3,21 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/ru/1.0.0),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.1.0] - 2026-08-04
+
+### Added
+
+- created jetty web-server core
+- created application time manager – `ns core.time`
+- created basic application api (links manager routes & service routes) – `ns web.routes.*`
+- created global application router – `ns web.router`
+- created application constants storage – `ns core.constants`
+
+### Changed
+
+- updated application structure ––> moved common project components into `core.*` namespace
+- updated object definition ––> created external DTOs and moved into `dto.*` namespace
+
 ## [v0.0.3] - 2026-08-01
 
 ### Changed

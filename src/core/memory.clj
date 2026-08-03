@@ -1,4 +1,4 @@
-(ns memory)
+(ns core.memory)
 
 (def links (atom {}))
 

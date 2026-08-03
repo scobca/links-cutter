@@ -1,11 +1,21 @@
 (ns core
-  (:require
-   [domain.link :as link]
-   [memory :refer [show-links]]))
+  (:require [ring.adapter.jetty :refer [run-jetty]]
+            [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
+            [ring.middleware.params :refer [wrap-params]]
+            [web.router :refer [app-routes]]
+            [core.time :refer [set-start-time!]]
+            [ring.middleware.params :refer [wrap-params]]))
 
-(println (link/create-link-record! "https://example.com" "short-code"))
-(println (link/create-link-record! "https://example.com"))
+(def app (-> app-routes
+             wrap-params
+             (wrap-json-params {:keywords? true})
+             (wrap-json-response {:pretty true})))
 
-(let [links (show-links)]
-  (doseq [[code url] links]
-    (println "Code:" code "—> URL:" url)))
+(defn start-server []
+  (run-jetty app {:port 3000 :join? false})
+  (set-start-time!))
+
+(defn -main []
+  (start-server)
+  (println "Server started")
+  @(promise))
