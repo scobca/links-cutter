@@ -1,7 +1,7 @@
-(ns time
-  (:import [java.time Duration Instant]))
-
-(defrecord Uptime [hours minutes seconds millis])
+(ns core.time
+  (:require [dto.time :as time])
+  (:import [dto.time Uptime]
+           [java.time Duration Instant]))
 
 (defonce start-time (atom nil))
 
@@ -14,7 +14,7 @@
         seconds (mod (.getSeconds duration) 60)
         millis (quot (.getNano duration) 1000000)]
 
-    (->Uptime hours minutes seconds millis)))
+    (time/->Uptime hours minutes seconds millis)))
 
 (defn ^Uptime get-server-uptime
   "Returns server uptime.

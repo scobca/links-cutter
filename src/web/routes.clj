@@ -4,12 +4,12 @@
 
             ;; Own code imports
             [core.memory :refer [show-links]]
-            [time :refer [get-server-uptime]]
+            [core.time :refer [get-server-uptime]]
             [domain.link :refer [create-link-record!]]
             [core.constants :refer [BASIC-LINKS-PULL-SIZE]]
             [dto.link-request :refer [map->CreateLinkRequest]])
 
-  (:import (time Uptime)))
+  (:import (dto.time Uptime)))
 
 (defroutes app-routes
   (GET "/info" []

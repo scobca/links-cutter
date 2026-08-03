@@ -3,7 +3,7 @@
             [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
             [ring.middleware.params :refer [wrap-params]]
             [web.routes :refer [app-routes]]
-            [time :refer [set-start-time!]]
+            [core.time :refer [set-start-time!]]
             [ring.middleware.params :refer [wrap-params]]))
 
 (def app (-> app-routes
