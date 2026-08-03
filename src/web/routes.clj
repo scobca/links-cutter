@@ -1,12 +1,12 @@
 (ns web.routes
   (:require [cheshire.core :refer [generate-string]]
             [compojure.core :refer [defroutes GET ANY]]
-            [ring.util.http-response :refer [ok not-found content-type]]
+            [ring.util.http-response :refer [ok not-found]]
 
             ;; Own code imports
             [memory :refer [show-links]]
             [time :refer [get-server-uptime]]
-            [constants :refer [BASIC-LINKS-PULL-SIZE APPLICATION-JSON]])
+            [constants :refer [BASIC-LINKS-PULL-SIZE]])
   (:import (time Uptime)))
 
 (defroutes app-routes
@@ -24,19 +24,16 @@
         ;; if length = nil -> use default value
         (nil? length) (-> (show-links BASIC-LINKS-PULL-SIZE)
                           generate-string
-                          ok
-                          (content-type APPLICATION-JSON))
+                          ok)
 
         ;; if length = 0 -> show all links
         (zero? length) (-> (show-links)
                            generate-string
-                           ok
-                           (content-type APPLICATION-JSON))
+                           ok)
 
         ;; show last <length> links
         :else (-> (show-links length)
                   generate-string
-                  ok
-                  (content-type APPLICATION-JSON)))))
+                  ok))))
 
   (ANY "*" [] (not-found "Not Found")))
