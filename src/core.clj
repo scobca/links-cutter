@@ -8,11 +8,11 @@
 
 (def app (-> app-routes
              wrap-params
-             wrap-json-params
-             wrap-json-response))
+             (wrap-json-params {:keywords? true})
+             (wrap-json-response {:pretty true})))
 
 (defn start-server []
-  (run-jetty app-routes {:port 3000 :join? false})
+  (run-jetty app {:port 3000 :join? false})
   (set-start-time!))
 
 (defn -main []
