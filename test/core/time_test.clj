@@ -1,4 +1,4 @@
-(ns time_test
+(ns core.time_test
   (:require [clojure.test :refer :all]
             [core.time :as sut]
             [dto.time])
