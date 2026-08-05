@@ -1,8 +1,8 @@
 (ns domain.link
   (:require
-    [domain.generator :refer [generate-code]]
-    [core.memory :refer [code-occupied? save-link-record!]]
-    [dto.link :refer [->LinkRecord]])
+   [domain.generator :refer [generate-code]]
+   [core.memory :refer [code-occupied? save-link-record!]]
+   [dto.link :refer [->LinkRecord]])
   (:import (dto.link LinkRecord)))
 
 (defn valid-url?
