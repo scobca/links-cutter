@@ -4,7 +4,7 @@
             [core.memory :refer [show-links find-link-record remove-link-record!]]
             [domain.link :refer [create-link-record!]]
             [core.constants :refer [BASIC-LINKS-PULL-SIZE]]
-            [dto.link-request :refer [map->CreateLinkRequest]]))
+            [dto.link :refer [map->CreateLinkRequest]]))
 
 (defroutes links-routes
   (context "/api/v1/links" []

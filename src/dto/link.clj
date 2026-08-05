@@ -1,3 +1,3 @@
-(ns dto.link-request)
+(ns dto.link)
 
 (defrecord CreateLinkRequest [^String url])
