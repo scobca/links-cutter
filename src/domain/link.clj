@@ -1,7 +1,9 @@
 (ns domain.link
   (:require
    [domain.generator :refer [generate-code]]
-   [core.memory :refer [code-occupied? save-link-record!]]))
+   [core.memory :refer [code-occupied? save-link-record!]]
+   [dto.link :refer [->LinkRecord]])
+  (:import (dto.link LinkRecord)))
 
 (defn valid-url?
   "Validate input URL, return boolean."
@@ -12,7 +14,7 @@
     true
     false))
 
-(defn create-link-record!
+(defn ^LinkRecord create-link-record!
   "Create the record of link, and it's unique code into the in-memory database (Check memory.clj)."
   ([url code]
    (cond
@@ -25,8 +27,7 @@
      :else
      (do
        (save-link-record! code url)
-       {:url url
-        :code code})))
+       (->LinkRecord url code))))
 
   ([url]
    (create-link-record! url (generate-code))))

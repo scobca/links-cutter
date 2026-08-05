@@ -3,6 +3,19 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/ru/1.0.0),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.1.1] - 2026-08-06
+
+### Added
+
+- created Links record deftype - `dto.links.LinksRecord`
+
+### Changed
+
+- renamed links dto namespace `dto.link_request.clj` –> `dto.link.clj`
+- updated `domain.links.create-link-record!` function return statement
+- updated `test.domain.link_test.create-link-record!` function testcases based on new return statement
+- updated core function tests - there\`re moved into new namespace `test.core.*`  
+
 ## [v0.1.0] - 2026-08-04
 
 ### Added

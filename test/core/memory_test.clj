@@ -1,4 +1,4 @@
-(ns memory-test
+(ns core.memory-test
   (:require [clojure.test :refer [deftest is testing]]
             [core.memory :refer :all]))
 

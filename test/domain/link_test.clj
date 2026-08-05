@@ -1,7 +1,8 @@
 (ns domain.link-test
   (:require [clojure.test :refer [deftest is testing]]
             [domain.link :refer [valid-url? create-link-record!]]
-            [core.memory :refer [links code-occupied?]]))
+            [core.memory :refer [links code-occupied?]]
+            [dto.link :refer [->LinkRecord]]))
 
 (defn clean-links []
   (reset! links {}))
@@ -25,7 +26,7 @@
   (testing "Create link record with specified code"
     (clean-links)
     (let [result (create-link-record! "https://google.com" "abc123")]
-      (is (= {:url "https://google.com" :code "abc123"} result))
+      (is (= (->LinkRecord "https://google.com" "abc123") result))
       (is (true? (code-occupied? "abc123")))))
 
   (testing "Create link record with duplicate code"
