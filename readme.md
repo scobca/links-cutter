@@ -1,5 +1,10 @@
 # Clojure Links Cutter
 
+![CI Status](https://img.shields.io/github/actions/workflow/status/scobca/links-cutter/ci.yml?branch=main)
+![License](https://img.shields.io/github/license/scobca/links-cutter)
+![Release](https://img.shields.io/github/v/release/scobca/links-cutter)
+![Language](https://img.shields.io/github/languages/top/scobca/links-cutter)
+
 ## What is that?
 
 `Clojure links cutter` is a studying project for learning Clojure syntax and its usability in WebDev.
@@ -39,4 +44,4 @@
 
 ## Authors
 
-- scobca
+[scobca](https://github.com/scobca) — Maintainer
