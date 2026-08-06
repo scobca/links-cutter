@@ -5,11 +5,12 @@
             [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
             [ring.middleware.params :refer [wrap-params]]
-            [web.router :refer [app-routes]]))
+            [web.router :refer [app-routes]]
+            [core.constants :refer [APPLICATION-CONFIG-FILE]]))
 
 (def config
   (delay
-    (if-let [resource (io/resource "config.edn")]
+    (if-let [resource (io/resource APPLICATION-CONFIG-FILE)]
       (-> resource
           slurp
           edn/read-string)
