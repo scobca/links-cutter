@@ -1,7 +1,6 @@
-(ns domain.generator)
-
-(def alphabet
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+(ns domain.generator
+  (:require [core.config :refer [link-code-length]]
+            [core.constants :refer [GENERATION-ALPHABET]]))
 
 (defn valid-size?
   "Validate the input size of generated code, returns boolean."
@@ -14,11 +13,11 @@
 (defn generate-code
   "Create abstract code for links records."
   ([]
-   (generate-code 6))
+   (generate-code (link-code-length)))
 
   ([size]
    (when (valid-size? size)
      (apply str
             (repeatedly
              size
-             (fn [] (nth alphabet (rand-int (count alphabet)))))))))
+             (fn [] (nth GENERATION-ALPHABET (rand-int (count GENERATION-ALPHABET)))))))))

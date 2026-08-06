@@ -1,10 +1,10 @@
 (ns core
-  (:require [ring.adapter.jetty :refer [run-jetty]]
+  (:require [core.config :refer [http-port]]
+            [core.time :refer [set-start-time!]]
+            [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
             [ring.middleware.params :refer [wrap-params]]
-            [web.router :refer [app-routes]]
-            [core.time :refer [set-start-time!]]
-            [ring.middleware.params :refer [wrap-params]]))
+            [web.router :refer [app-routes]]))
 
 (def app (-> app-routes
              wrap-params
@@ -12,7 +12,7 @@
              (wrap-json-response {:pretty true})))
 
 (defn start-server []
-  (run-jetty app {:port 3000 :join? false})
+  (run-jetty app {:port (http-port) :join? false})
   (set-start-time!))
 
 (defn -main []
