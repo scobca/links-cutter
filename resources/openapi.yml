@@ -1,0 +1,27 @@
+openapi: 3.0.0
+
+info:
+  title: Clojure Links Cutter API
+  version: 0.1.3
+  description: API for URL shortening service
+
+paths:
+  /api/v1/info:
+    get:
+      summary: System information endpoint
+      description: Returns server uptime and status information
+      tags:
+        - System
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Server uptime information in human-readable format
+                    example: "Web server started successfully. Work time: 2h 15min 30sec 123millis"
+
