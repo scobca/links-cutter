@@ -11,7 +11,6 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - created `/sqagger-ui` endpoint with openapi visualization
 - created openapi specification for system & links endpoints
 
-
 ## [v0.1.3] - 2026-08-07
 
 ### Added
