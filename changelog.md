@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/ru/1.0.0),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.1.4] - 2026-08-08
+
+### Added
+
+- created `web.routes.openapi.clj` - routes with raw openapi specifications
+- created `/sqagger-ui` endpoint with openapi visualization
+- created openapi specification for system & links endpoints
+
 ## [v0.1.3] - 2026-08-07
 
 ### Added
