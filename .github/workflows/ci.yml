@@ -38,7 +38,7 @@ jobs:
       - name: Check formatting
         run: cljfmt check
 
-  clojrue-linting:
+  clojure-linting:
     needs:
       - clojure-formatting
     runs-on: ubuntu-latest
