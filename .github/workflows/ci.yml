@@ -77,7 +77,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit"
           else
-            git commit -m "style: ci auto-fix Clojure formatting with cljfmt [skip ci]"
+            git commit -m "style: ci auto-fix Clojure formatting with cljfmt"
             git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
 
@@ -100,12 +100,6 @@ jobs:
     needs:
       - markdown-formatting
       - clojure-formatting
-      - clojure-linting
-
-    if: |
-      always() && 
-      needs.markdown-formatting.result == 'success' && 
-      (needs.clojure-formatting.result == 'success' || needs.clojure-linting.result == 'success')
 
     timeout-minutes: 5
     runs-on: ubuntu-latest
