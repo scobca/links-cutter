@@ -38,6 +38,49 @@ jobs:
       - name: Check formatting
         run: cljfmt check
 
+  clojure-linting:
+    needs:
+      - clojure-formatting
+    runs-on: ubuntu-latest
+    if: failure()
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '8'
+
+      - name: Setup Clojure tools
+        uses: DeLaGuardo/setup-clojure@13
+        with:
+          cljfmt: 'latest'
+
+      - name: Run cljfmt fix
+        run: cljfmt fix
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@://github.com"
+          
+          git add .
+          
+          if git diff-index --quiet HEAD --; then
+            echo "No changes to commit"
+          else
+            git commit -m "style: ci auto-fix Clojure formatting with cljfmt"
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
+          fi
+
 
   markdown-formatting:
     timeout-minutes: 5
@@ -55,6 +98,7 @@ jobs:
 
   clojure-testing:
     needs:
+      - markdown-formatting
       - clojure-formatting
 
     timeout-minutes: 5

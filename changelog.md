@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/ru/1.0.0),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.1.5] - 2026-08-09
+
+### Added
+
+- created clojure ci auto-linter using `cljfmt fix`
+
+### Changed
+
+- updated `clojure-testing` jobs dependencies
+
 ## [v0.1.4] - 2026-08-08
 
 ### Added
