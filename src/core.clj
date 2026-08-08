@@ -9,29 +9,15 @@
             [web.router :refer [app-routes]]))
 
 (def app (-> app-routes
-                      (wrap-swagger-ui {:path OPENAPI-SWAGGER-DOCS-ROUTE
-                                                                    :swagger-docs OPENAPI-JSON-DOCS-ROUTE})
+             (wrap-swagger-ui {:path OPENAPI-SWAGGER-DOCS-ROUTE
+                               :swagger-docs OPENAPI-JSON-DOCS-ROUTE})
              wrap-params
              (wrap-json-params {:keywords? true})
              (wrap-json-response {:pretty true})))
 
-
-
-
-
-
-
 (defn start-server []
   (run-jetty app {:port (http-port) :join? false})
   (set-start-time!))
-
-
-
-
-
-
-
-
 
 (defn -main []
   (start-server)
