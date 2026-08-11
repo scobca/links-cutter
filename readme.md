@@ -14,10 +14,14 @@
 ```markdown
 ├── .github/workflows
 │ └── ci.yml
+├── resources/
+│ ├── config.edn                # Application config properties
+│ └── openapi.yml               # OpenAPI documentation
 ├── scripts/
 │ └── tag-release.sh            # Script for automatic version tagging
 ├── src/
 │ ├── core/
+│ │ ├── config.clj              # Application settings from `resources/config.edn`
 │ │ ├── constants.clj           # Global application constants
 │ │ ├── memory.clj              # In-memory storage implementation (memory-model)
 │ │ ├── time.clj                # Uptime server timer
@@ -30,6 +34,7 @@
 │ ├── web/
 │ │ ├── routes/
 │ │ │ ├── links.clj             # /links routes
+│ │ │ ├── openapi.clj           # openapi routes
 │ │ │ ├── service.clj           # application-level routes
 │ │ └── router.clj              # Global application router
 │ └── core.clj                  # Main application entry point
